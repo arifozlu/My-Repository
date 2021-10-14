@@ -1,0 +1,24 @@
+---
+AWSTemplateFormatVersion: 2010-09-09
+Description: "This template launches an EC2 with a security group that enables SSH\n"
+Resources:
+ MyEc2: 
+  Properties: 
+   ImageId: ami-02e136e904f3da870
+   InstanceType: t2.micro
+   KeyName: demokey
+   Tags: 
+    - 
+     Key: Name
+     Value: First-Cf-Stack-Instance
+  Type: "AWS::EC2::Instance"
+ MyS3:
+  Properties:
+    BucketName: first-cf-s3-bucket
+  Type: AWS::S3::Bucket
+Outputs:
+ PublicServerDNS:
+  Value: !GetAtt MyEc2.PublicDnsName
+ BucketDomainName:
+  Value: !GetAtt MyS3.DomainName
+
